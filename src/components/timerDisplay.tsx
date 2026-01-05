@@ -24,7 +24,7 @@ const TimerDisplay: React.FC<{currTime: number}> = ({currTime}) => {
 
     return (
         <>
-            <div className="p-5 text-5xl font-bold text-orange-400">
+            <div className="p-5 text-5xl font-bold text-orange-500 dark:text-orange-400">
                 {displayTime}
             </div>
         </>

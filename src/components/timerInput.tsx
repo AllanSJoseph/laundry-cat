@@ -1,5 +1,5 @@
 import {useState, useRef, useEffect} from "react";
-
+import toast from 'react-hot-toast';
 
 interface TimerInputProps {
     onTimeSet: (seconds: number) => void;
@@ -96,6 +96,9 @@ const TimerInput: React.FC<TimerInputProps> = ({ onTimeSet }) => {
         const seconds = Number(inputValue);
         if (seconds > 0) {
             onTimeSet(seconds);
+        } else {
+            toast.error("Please set a time greater than 0 seconds.");
+            console.log("I am called");
         }
     };
 
@@ -135,11 +138,11 @@ const TimerInput: React.FC<TimerInputProps> = ({ onTimeSet }) => {
 
 
     return (
-        <div>
+        <div className="flex flex-col gap-10 items-center justify-center lg:flex-row">
             
-            <div className="pt-7">
+            
                     
-        
+            <div className="flex items-center justify-center">
                 <div className="relative">
                     {/* Knob container */}
                     <div className="relative w-48 h-48 mb-8">
@@ -174,7 +177,7 @@ const TimerInput: React.FC<TimerInputProps> = ({ onTimeSet }) => {
                         {/* Knob */}
                         <div
                         ref={knobRef}
-                        className={`absolute inset-0 m-auto w-40 h-40 rounded-full bg-gradient-to-br from-slate-700 to-slate-600 shadow-lg cursor-grab ${
+                        className={`absolute inset-0 m-auto w-40 h-40 rounded-full bg-gradient-to-br from-slate-300 to-slate-200 dark:from-slate-700 dark:to-slate-600 shadow-lg cursor-grab ${
                             isDragging ? 'cursor-grabbing scale-95' : ''
                         } transition-transform`}
                         onMouseDown={handleKnobStart}
@@ -184,21 +187,21 @@ const TimerInput: React.FC<TimerInputProps> = ({ onTimeSet }) => {
                         }}
                         >
                             {/* Inner circle */}
-                            <div className="absolute inset-3 rounded-full bg-gradient-to-br from-slate-600 to-slate-700 shadow-inner" />
+                            <div className="absolute inset-3 rounded-full bg-gradient-to-br from-slate-200 to-slate-300 dark:from-slate-600 dark:to-slate-700 shadow-inner" />
                             
                             {/* Indicator */}
-                            <div className="absolute top-4 left-1/2 -translate-x-1/2 w-1 h-12 bg-orange-400 rounded-full shadow-lg shadow-cyan-400/50" />
+                            <div className="absolute top-4 left-1/2 -translate-x-1/2 w-1 h-12 bg-orange-500 dark:bg-orange-400 rounded-full shadow-lg shadow-cyan-400/50" />
                             
                             {/* Center dot */}
                             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-slate-800 shadow-inner" />
                         </div>
                     </div>
                 </div>
-        
+            </div>
+            <div className="flex-col items-center justify-center">
                 {/* Value display */}
-                <div className="text-center">
-                    <div className="text-5xl font-bold text-orange-400 mb-2">
-                        {/* {Math.floor(inputValue / 60)}:{String(inputValue % 60).padStart(2, '0')} */}
+                <div className="mb-5 text-center">
+                    <div className="text-5xl font-bold text-orange-500 dark:text-orange-400 mb-2">
                         <input
                             className="w-20 bg-transparent text-center focus:outline-none"
                             type="number"
@@ -215,10 +218,10 @@ const TimerInput: React.FC<TimerInputProps> = ({ onTimeSet }) => {
                             placeholder="Enter seconds"
                         />
                     </div>
-                    <div className="text-slate-400 text-sm">minutes : seconds</div>
-                    </div>
-                    <button className="mt-3 w-50 rounded bg-orange-400 p-2 font-bold text-white cursor-pointer" onClick={handleSet} disabled={!inputValue}>Set Timer</button>
+                    <div className="text-slate-500 dark:text-slate-400 text-sm">minutes : seconds</div>
                 </div>
+                    <button className="w-full flex items-center justify-center gap-3 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 dark:from-orange-600 dark:to-orange-700 dark:hover:from-orange-700 dark:hover:to-orange-800 text-white font-bold py-4 px-6 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200" onClick={handleSet} disabled={!inputValue}>Set Timer</button>
+            </div>   
         </div>
     )
 

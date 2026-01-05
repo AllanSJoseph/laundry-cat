@@ -15,3 +15,5 @@ export type TimerAction =
     | {type: "RESET"}
     | {type: "RESUME"}
     | {type: "FINISH"};
+
+export type Theme = "light" | "dark";
